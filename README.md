@@ -2,6 +2,15 @@
 
 An assignment for university.
 
+## Electronic Voting Is A Bad Idea
+
+Learn why fully electronic voting should never be implemented.
+
+- [YouTube video (12:01m) from Tom Scott](https://www.youtube.com/watch?v=LkH2r-sNjQs)
+- [YouTube video (8:21m) from Computerphile](https://www.youtube.com/watch?v=w3_0x6oaDmI)
+
+This project is purely a concept for an assignment.
+
 ## Stack
 
 - .NET 7.0
@@ -40,7 +49,7 @@ mechanisms/electoral systems (such as single transferable vote, first-past-the-p
 voting, etc.), as there is no international standard method for voting.
 
 They also want the system to allow for both in-person (voting booth) and remote (online) voting, as
-it is felt that this will extend the possible markets for the system.Due to worries about issues such as
+it is felt that this will extend the possible markets for the system. Due to worries about issues such as
 privacy and security, they require a system that is robust and ideally follows existing standards
 and/or meets legislation around these issues (such as GDPR). They must also be able to demonstrate
 that the system is usable by a variety of users, in different countries and with different languages.
