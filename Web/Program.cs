@@ -22,7 +22,9 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 builder.Services.AddDbContext<VotingContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("BloggingDatabase")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("VotingDatabase")));    
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 var app = builder.Build();
 
