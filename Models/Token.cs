@@ -6,4 +6,5 @@ public class Token : BaseModel
     public User User { get; set; }
     public int ElectionId { get; set; }
     public Election Election { get; set; }
+    public string Value { get; set; }
 }
