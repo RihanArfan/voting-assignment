@@ -7,4 +7,6 @@ public class Token : BaseModel
     public int ElectionId { get; set; }
     public Election Election { get; set; }
     public string Value { get; set; }
+    public bool IsOnline { get; set; }
+
 }

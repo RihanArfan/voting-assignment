@@ -10,18 +10,29 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" NoWarn="NU1605" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.2" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Identity.Web" Version="1.16.0" />
-        <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.16.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Data\Data.csproj" />
+        <ProjectReference Include="..\Services\Services.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Using Include="Models" />
+        <Using Include="Services" />
+        <Using Include="Services.Interfaces" />
+        <Using Include="Microsoft.AspNetCore.Mvc" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Auth\Login.cshtml" />
+      <AdditionalFiles Include="Views\Report\Index.cshtml" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,14 @@
+﻿@model Web.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h1>Login</h1>
+
+<form asp-action="Login" method="post">
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Unique Voter Token">
+      <label for="floatingPassword">Unique Voter Token</label>
+    </div>
+</form>
