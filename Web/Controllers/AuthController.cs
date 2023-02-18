@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Web.Models;
 
 namespace Web.Controllers;
@@ -7,6 +10,7 @@ namespace Web.Controllers;
 public class AuthController : Controller
 {
     private readonly ITokenService _tokenService;
+
 
     public AuthController(ITokenService tokenService)
     {
@@ -26,9 +30,25 @@ public class AuthController : Controller
         var token = await _tokenService.GetByValue(viewModel.Token);
         var isValid = _tokenService.Validate(token);
 
-        if (!isValid) return View(viewModel);
-        
-        HttpContext.Session.SetString("Token", viewModel.Token);
+        if (!isValid)
+        {
+            ModelState.AddModelError("Token", "The token provided is invalid.");
+            return View(viewModel);
+        }
+
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, token.UserId.ToString()),
+            new Claim("ElectionId", token.ElectionId.ToString()),
+            new Claim("TokenId", token.Id.ToString()),
+        };
+
+        var claimsIdentity = new ClaimsIdentity(
+            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity));
 
         return RedirectToAction("Index", "Vote");
     }

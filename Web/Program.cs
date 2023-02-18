@@ -1,35 +1,23 @@
 using Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = "Token";
-    options.DefaultChallengeScheme = "Token";
-});
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+        options.LoginPath = "/Auth/Login";
+    });
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-builder.Services.AddControllersWithViews(options =>
-{
-    // var policy = new AuthorizationPolicyBuilder()
-    //     .RequireAuthenticatedUser()
-    //     .Build();
-    // options.Filters.Add(new AuthorizeFilter(policy));
-});
+builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<VotingContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("VotingDatabase")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(15);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IVoteService, VoteService>();
@@ -48,7 +36,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession();
 
 app.UseAuthorization();
 
@@ -56,5 +43,10 @@ app.MapControllerRoute(
     "default",
     "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+});
 
 app.Run();
