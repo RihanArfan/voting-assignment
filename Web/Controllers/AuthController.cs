@@ -10,8 +10,7 @@ namespace Web.Controllers;
 public class AuthController : Controller
 {
     private readonly ITokenService _tokenService;
-
-
+    
     public AuthController(ITokenService tokenService)
     {
         _tokenService = tokenService;
