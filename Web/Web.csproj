@@ -17,15 +17,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Data\Data.csproj"/>
-        <ProjectReference Include="..\Services\Services.csproj"/>
+        <ProjectReference Include="..\Data\Data.csproj" />
+        <ProjectReference Include="..\Services\Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Models"/>
-        <Using Include="Services"/>
-        <Using Include="Services.Interfaces"/>
-        <Using Include="Microsoft.AspNetCore.Mvc"/>
+        <Using Include="Models" />
+        <Using Include="Services" />
+        <Using Include="Services.Interfaces" />
+        <Using Include="Microsoft.AspNetCore.Mvc" />
     </ItemGroup>
 
     <ItemGroup>
