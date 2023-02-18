@@ -1,6 +1,6 @@
 ﻿namespace Services;
 
-public class ElectionService
+public class ElectionService : IElectionService
 {
     private readonly VotingContext _context;
 
