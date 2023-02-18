@@ -1,11 +1,11 @@
 ﻿namespace Web.Controllers;
 
-public class ReportController : Controller
+public class ReportsController : Controller
 {
     private ElectionService _electionService;
     private ReportService _reportService;
 
-    private ReportController(ReportService reportService, ElectionService electionService)
+    private ReportsController(ReportService reportService, ElectionService electionService)
     {
         _reportService = reportService;
         _electionService = electionService;
