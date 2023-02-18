@@ -4,6 +4,12 @@
 
 An assignment for university.
 
+> :warning: Project is only a prototype!
+> 
+> The quality of this project is lower as it is experimentation with a new stack, and priority was to maximise grade based on the mark scheme. 
+> 
+> This project was done in a short timespan and it is a basic prototype for OOD, so the logic used has major flaws/improvements which can be made.
+
 ## Electronic Voting Is A Bad Idea
 
 Learn why fully electronic voting should never be implemented.
