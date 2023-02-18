@@ -1,0 +1,44 @@
+﻿@model Election
+
+@{
+    ViewData["Title"] = "Vote";
+}
+
+<form asp-action="Index" method="post">
+    <div class="govuk-form-group @(ViewData.ModelState.Count > 0 ? "govuk-form-group--error" : "")">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    What party do you want to vote for?
+                </h1>
+            </legend>
+
+
+            @foreach (var error in ViewData.ModelState.Values)
+            {
+                @foreach (var error2 in error.Errors)
+                {
+                    <p class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> @error2.ErrorMessage
+                    </p>
+                }
+            }
+
+            <div class="govuk-radios" data-module="govuk-radios">
+                @foreach (var party  in Model.Parties)
+                {
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="party-@party.Id" name="Party" type="radio" value="@party.Id">
+                        <label class="govuk-label govuk-radios__label" for="party-@party.Id">
+                            @party.Name
+                        </label>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+
+    <button class="govuk-button" data-module="govuk-button">
+        Confirm vote
+    </button>
+</form>
