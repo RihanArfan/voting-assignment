@@ -41,9 +41,11 @@ public class TokenService : ITokenService
     {
         if (token == null) return false;
         if (token.Election.EndDate < DateTime.Now) return false;
+        if (token.Vote != null) return false;
 
         // if application is running in local booth mode, prevent online tokens from being used and vice versa
-        if (Convert.ToBoolean(_configuration["PhysicalBooth"]) != token.IsOnline) return false;
+        if (Convert.ToBoolean(_configuration["PhysicalBooth"]) != token.IsOnline)
+            return false;
 
         return true;
     }

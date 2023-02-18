@@ -7,6 +7,4 @@ public interface ITokenService
     Task<Token?> GetByValue(string tokenValue);
 
     bool Validate(Token? token);
-
-    void DeleteExpired();
 }
