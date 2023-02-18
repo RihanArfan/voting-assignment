@@ -10,10 +10,12 @@ namespace Web.Controllers;
 public class AuthController : Controller
 {
     private readonly ITokenService _tokenService;
+    private readonly IVoteService _voteService;
 
-    public AuthController(ITokenService tokenService)
+    public AuthController(ITokenService tokenService, IVoteService voteService)
     {
         _tokenService = tokenService;
+        _voteService = voteService;
     }
 
     public IActionResult Login()
@@ -22,6 +24,7 @@ public class AuthController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel viewModel)
     {
         if (!ModelState.IsValid) return View(viewModel);
@@ -29,7 +32,7 @@ public class AuthController : Controller
         var token = await _tokenService.GetByValue(viewModel.Token);
         var isValid = _tokenService.Validate(token);
 
-        if (!isValid)
+        if (!isValid || token == null)
         {
             ModelState.AddModelError("Token", "The token provided is invalid.");
             return View(viewModel);
@@ -39,7 +42,7 @@ public class AuthController : Controller
         {
             new(ClaimTypes.NameIdentifier, token.UserId.ToString()),
             new("ElectionId", token.ElectionId.ToString()),
-            new("TokenId", token.Id.ToString())
+            new("Token", token.Value)
         };
 
         var claimsIdentity = new ClaimsIdentity(
