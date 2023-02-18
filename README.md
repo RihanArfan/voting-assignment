@@ -1,6 +1,6 @@
 ﻿# Voting Assignment
 
-[![wakatime](https://wakatime.com/badge/user/2f19162a-e407-4cd6-b835-06cd4f5c34b0/project/22c488e3-1c0b-4a9e-b13c-0d8501a06203.svg?style=flat-square)](https://wakatime.com/badge/user/2f19162a-e407-4cd6-b835-06cd4f5c34b0/project/22c488e3-1c0b-4a9e-b13c-0d8501a06203)
+[![wakatime](https://wakatime.com/badge/github/RihanArfan/voting-assignment.svg?style=flat-square)](https://wakatime.com/badge/github/RihanArfan/voting-assignment)
 
 An assignment for university.
 
