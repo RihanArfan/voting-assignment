@@ -7,8 +7,8 @@ namespace Web.Controllers;
 [Authorize]
 public class VoteController : Controller
 {
-    private readonly IVoteService _voteService;
     private readonly IElectionService _electionService;
+    private readonly IVoteService _voteService;
 
     public VoteController(IVoteService voteService, IElectionService electionService)
     {

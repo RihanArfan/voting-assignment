@@ -8,5 +8,4 @@ public class Token : BaseModel
     public Election Election { get; set; }
     public string Value { get; set; }
     public bool IsOnline { get; set; }
-
 }

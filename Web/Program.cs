@@ -47,7 +47,7 @@ app.MapRazorPages();
 
 app.UseCookiePolicy(new CookiePolicyOptions
 {
-    MinimumSameSitePolicy = SameSiteMode.Strict,
+    MinimumSameSitePolicy = SameSiteMode.Strict
 });
 
 app.Run();

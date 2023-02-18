@@ -10,7 +10,7 @@ namespace Web.Controllers;
 public class AuthController : Controller
 {
     private readonly ITokenService _tokenService;
-    
+
     public AuthController(ITokenService tokenService)
     {
         _tokenService = tokenService;
@@ -37,9 +37,9 @@ public class AuthController : Controller
 
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, token.UserId.ToString()),
-            new Claim("ElectionId", token.ElectionId.ToString()),
-            new Claim("TokenId", token.Id.ToString()),
+            new(ClaimTypes.NameIdentifier, token.UserId.ToString()),
+            new("ElectionId", token.ElectionId.ToString()),
+            new("TokenId", token.Id.ToString())
         };
 
         var claimsIdentity = new ClaimsIdentity(

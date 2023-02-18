@@ -2,7 +2,7 @@
 
 public class ReportsController : Controller
 {
-    private ElectionService _electionService;
+    private readonly ElectionService _electionService;
     private ReportService _reportService;
 
     private ReportsController(ReportService reportService, ElectionService electionService)
