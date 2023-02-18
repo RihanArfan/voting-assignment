@@ -1,12 +1,12 @@
 ﻿@{
-    var isHome = ViewContext.RouteData.Values["controller"].ToString() == "Home";
-    var isVote = ViewContext.RouteData.Values["controller"].ToString() == "Vote" || ViewContext.RouteData.Values["controller"].ToString() == "Auth";
-    var isReports = ViewContext.RouteData.Values["controller"].ToString() == "Reports";
+    var isHome = ViewContext.RouteData.Values["controller"]?.ToString() == "Home";
+    var isVote = ViewContext.RouteData.Values["controller"]?.ToString() == "Vote" || ViewContext.RouteData.Values["controller"]?.ToString() == "Auth";
+    var isReports = ViewContext.RouteData.Values["controller"]?.ToString() == "Reports";
 }
 
 @functions
 {
-    public string activeClass(bool active)
+    private string ActiveClass(bool active)
     {
         return active ? "govuk-header__navigation-item--active" : "";
     }
@@ -56,17 +56,17 @@
                 <nav aria-label="Menu" class="govuk-header__navigation ">
                     <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide menu" hidden>Menu</button>
                     <ul id="navigation" class="govuk-header__navigation-list">
-                        <li class="govuk-header__navigation-item  @activeClass(isHome)">
+                        <li class="govuk-header__navigation-item  @ActiveClass(isHome)">
                             <a class="govuk-header__link" asp-controller="Home" asp-action="Index">
                                 About
                             </a>
                         </li>
-                        <li class="govuk-header__navigation-item @activeClass(isVote)">
+                        <li class="govuk-header__navigation-item @ActiveClass(isVote)">
                             <a class="govuk-header__link" asp-controller="Vote" asp-action="Index">
                                 Vote
                             </a>
                         </li>
-                        <li class="govuk-header__navigation-item @activeClass(isReports)">
+                        <li class="govuk-header__navigation-item @ActiveClass(isReports)">
                             <a class="govuk-header__link" asp-controller="Reports" asp-action="Index">
                                 Public Reports
                             </a>
@@ -110,7 +110,7 @@
             </p>
         </div>
 
-        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home" || ViewContext.RouteData.Values["action"].ToString() != "Index")
+        @if (ViewContext.RouteData.Values["controller"]?.ToString() != "Home" || ViewContext.RouteData.Values["action"]?.ToString() != "Index")
         {
             <a asp-controller="Home" asp-action="Index" class="govuk-back-link">Back</a>
         }
@@ -136,22 +136,22 @@
                     <h2 class="govuk-visually-hidden">Support links</h2>
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#1">
+                            <a class="govuk-footer__link" href="#">
                                 Help
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#2">
+                            <a class="govuk-footer__link" href="#">
                                 Cookies
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#3">
+                            <a class="govuk-footer__link" href="#">
                                 Contact
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#4">
+                            <a class="govuk-footer__link" href="#">
                                 Terms and conditions
                             </a>
                         </li>
