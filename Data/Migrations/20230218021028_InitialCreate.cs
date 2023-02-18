@@ -43,7 +43,7 @@ namespace Data.Migrations
                     County = table.Column<string>(type: "TEXT", nullable: false),
                     PostCode = table.Column<string>(type: "TEXT", nullable: false),
                     Country = table.Column<string>(type: "TEXT", nullable: false),
-                    isOnlineVoter = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsOnlineVoter = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -136,6 +136,7 @@ namespace Data.Migrations
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     ElectionId = table.Column<int>(type: "INTEGER", nullable: false),
                     Value = table.Column<string>(type: "TEXT", nullable: false),
+                    IsOnline = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
