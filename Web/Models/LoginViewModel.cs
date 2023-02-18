@@ -5,7 +5,7 @@ namespace Web.Models;
 
 public class LoginViewModel
 {
-    [Required]
+    [Required(ErrorMessage = "Token is required.")]
     [DisplayName("Unique Voter Token")]
     [DataType(DataType.Password)]
     [StringLength(13, MinimumLength = 13, ErrorMessage = "Token must be 13 characters long.")]
