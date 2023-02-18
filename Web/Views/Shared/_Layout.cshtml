@@ -115,11 +115,14 @@
             <a asp-controller="Home" asp-action="Index" class="govuk-back-link">Back</a>
         }
     </environment>
-    
+
     <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">@ViewData["Header"]</h1>
+                @if (@ViewData["Header"] != null)
+                {
+                    <h1 class="govuk-heading-xl">@ViewData["Header"]</h1>
+                }
                 @RenderBody()
             </div>
         </div>

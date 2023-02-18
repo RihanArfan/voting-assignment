@@ -2,16 +2,19 @@
 
 @{
     ViewData["Title"] = "Login";
-    ViewData["Header"] = "Enter your unique voter token";
 }
 
 <form asp-action="Login" method="post">
     <div class="govuk-form-group @(ViewData.ModelState.Count > 0 ? "govuk-form-group--error" : "")">
-        <label class="govuk-label" asp-for="Token"></label>
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                What is your unique voter token?
+            </h1>
+        </legend>
         <div class="govuk-hint">
             For example, ABCDEF-GHIJKL.
         </div>
-        
+
         @foreach (var error in ViewData.ModelState.Values)
         {
             @foreach (var error2 in error.Errors)
@@ -21,7 +24,7 @@
                 </p>
             }
         }
-        
+
         <input class="govuk-input govuk-!-width-two-thirds @(ViewData.ModelState.Count > 0 ? "govuk-input--error" : "")" asp-for="Token" spellcheck="false" autocomplete="false">
     </div>
 
