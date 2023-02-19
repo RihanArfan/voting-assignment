@@ -2,7 +2,7 @@
 
 public interface IVoteService
 {
-    Task VoteAsync(Vote vote);
+    Task VoteAsync(string partyId, string tokenValue);
 
     Task<bool> IsUserVotedAsync(int userId, int electionId);
 }

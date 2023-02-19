@@ -34,6 +34,7 @@ public class TokenService : ITokenService
     {
         return await _context.Token
             .Include(t => t.Election)
+            .Include(t => t.Vote)
             .FirstOrDefaultAsync(t => t.Value == tokenValue);
     }
 
