@@ -13,6 +13,12 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
+    /// <summary>
+    /// Issue a new token for a user to vote on an election
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="election"></param>
+    /// <returns></returns>
     public Token Create(User user, Election election)
     {
         var token = new Token
@@ -30,6 +36,11 @@ public class TokenService : ITokenService
         return token;
     }
 
+    /// <summary>
+    /// Get token by its value
+    /// </summary>
+    /// <param name="tokenValue"></param>
+    /// <returns></returns>
     public async Task<Token?> GetByValue(string tokenValue)
     {
         return await _context.Token
@@ -38,6 +49,11 @@ public class TokenService : ITokenService
             .FirstOrDefaultAsync(t => t.Value == tokenValue);
     }
 
+    /// <summary>
+    /// Validate a token is valid for voting
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public bool Validate(Token? token)
     {
         if (token == null) return false;
@@ -51,16 +67,10 @@ public class TokenService : ITokenService
         return true;
     }
 
-    public void DeleteExpired()
-    {
-        var tokens = _context.Token
-            .Include(t => t.Election)
-            .Where(t => t.Election.EndDate < DateTime.Now)
-            .ToList();
-
-        _context.Token.RemoveRange(tokens);
-    }
-
+    /// <summary>
+    /// Notify user of their token
+    /// </summary>
+    /// <param name="token"></param>
     private void Notify(Token token)
     {
         // NOT IMPLEMENTED - Not possible for proof-of-concept assignment
@@ -68,9 +78,9 @@ public class TokenService : ITokenService
         {
             if (token.IsOnlineVote)
             {
-                // Call API to email using 3rd party email delivery service
+                // Call API to send email
             }
-            // Call API to send postal mail 
+            // Call API to send postal mail
         }
         catch (Exception e)
         {

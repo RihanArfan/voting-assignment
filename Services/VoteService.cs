@@ -13,6 +13,13 @@ public class VoteService : IVoteService
         _electionService = electionService;
     }
 
+    /// <summary>
+    /// Vote for party
+    /// </summary>
+    /// <param name="partyId"></param>
+    /// <param name="tokenValue"></param>
+    /// <exception cref="UnauthorizedAccessException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
     public async Task VoteAsync(string partyId, string tokenValue)
     {
         var token = await _tokenService.GetByValue(tokenValue);
@@ -41,6 +48,12 @@ public class VoteService : IVoteService
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Check if user voted in election
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="electionId"></param>
+    /// <returns></returns>
     public async Task<bool> IsUserVotedAsync(int userId, int electionId)
     {
         return await _context.Vote

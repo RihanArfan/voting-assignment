@@ -11,6 +11,10 @@ public class UserService
         _tokenService = tokenService;
     }
 
+    /// <summary>
+    /// Issues all users a token for a given election
+    /// </summary>
+    /// <param name="election"></param>
     public void CreateTokensForElectionAsync(Election election)
     {
         var users = _context.User.ToList();
