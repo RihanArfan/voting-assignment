@@ -42,6 +42,7 @@ public class VoteService : IVoteService
 
     public async Task<bool> IsUserVotedAsync(int userId, int electionId)
     {
-        return await _context.Vote.AnyAsync(v => v.UserId == userId && v.ElectionId == electionId);
+        return await _context.Vote
+            .AnyAsync(v => v.Token.UserId == userId && v.Token.ElectionId == electionId);
     }
 }

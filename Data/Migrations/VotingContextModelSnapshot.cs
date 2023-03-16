@@ -17,6 +17,21 @@ namespace Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
 
+            modelBuilder.Entity("ElectionParty", b =>
+                {
+                    b.Property<int>("ElectionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PartiesId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ElectionId", "PartiesId");
+
+                    b.HasIndex("PartiesId");
+
+                    b.ToTable("ElectionParty");
+                });
+
             modelBuilder.Entity("Models.Election", b =>
                 {
                     b.Property<int>("Id")
@@ -73,7 +88,8 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("NationalInsurance");
                 });
@@ -94,9 +110,6 @@ namespace Data.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("ElectionId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Facebook")
                         .HasColumnType("TEXT");
@@ -123,8 +136,6 @@ namespace Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ElectionId");
 
                     b.ToTable("Party");
                 });
@@ -176,7 +187,7 @@ namespace Data.Migrations
                     b.Property<int>("ElectionId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsOnline")
+                    b.Property<bool>("IsOnlineVote")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
@@ -262,7 +273,7 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ElectionId")
+                    b.Property<int?>("ElectionId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PartyId")
@@ -292,32 +303,36 @@ namespace Data.Migrations
                     b.ToTable("Vote");
                 });
 
+            modelBuilder.Entity("ElectionParty", b =>
+                {
+                    b.HasOne("Models.Election", null)
+                        .WithMany()
+                        .HasForeignKey("ElectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Party", null)
+                        .WithMany()
+                        .HasForeignKey("PartiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Models.NationalInsurance", b =>
                 {
                     b.HasOne("Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("NationalInsurance")
+                        .HasForeignKey("Models.NationalInsurance", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Models.Party", b =>
-                {
-                    b.HasOne("Models.Election", "Election")
-                        .WithMany("Parties")
-                        .HasForeignKey("ElectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Election");
-                });
-
             modelBuilder.Entity("Models.Passport", b =>
                 {
                     b.HasOne("Models.User", "User")
-                        .WithMany()
+                        .WithMany("Passport")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -346,11 +361,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.Vote", b =>
                 {
-                    b.HasOne("Models.Election", "Election")
+                    b.HasOne("Models.Election", null)
                         .WithMany("Votes")
-                        .HasForeignKey("ElectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ElectionId");
 
                     b.HasOne("Models.Party", "Party")
                         .WithMany()
@@ -370,8 +383,6 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Election");
-
                     b.Navigation("Party");
 
                     b.Navigation("Token");
@@ -381,8 +392,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.Election", b =>
                 {
-                    b.Navigation("Parties");
-
                     b.Navigation("Votes");
                 });
 
@@ -393,6 +402,10 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.User", b =>
                 {
+                    b.Navigation("NationalInsurance");
+
+                    b.Navigation("Passport");
+
                     b.Navigation("Tokens");
 
                     b.Navigation("Votes");

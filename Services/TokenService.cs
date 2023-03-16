@@ -20,7 +20,7 @@ public class TokenService : ITokenService
             UserId = user.Id,
             ElectionId = election.Id,
             Value = Guid.NewGuid().ToString(),
-            IsOnline = user.IsOnlineVoter
+            IsOnlineVote = user.IsOnlineVoter
         };
 
         _context.Token.Add(token);
@@ -45,7 +45,7 @@ public class TokenService : ITokenService
         if (token.Vote != null) return false;
 
         // if application is running in local booth mode, prevent online tokens from being used and vice versa
-        if (Convert.ToBoolean(_configuration["PhysicalBooth"]) != token.IsOnline)
+        if (Convert.ToBoolean(_configuration["PhysicalBooth"]) != token.IsOnlineVote)
             return false;
 
         return true;
@@ -66,7 +66,7 @@ public class TokenService : ITokenService
         // NOT IMPLEMENTED - Not possible for proof-of-concept assignment
         try
         {
-            if (token.IsOnline)
+            if (token.IsOnlineVote)
             {
                 // Call API to email using 3rd party email delivery service
             }
