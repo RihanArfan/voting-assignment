@@ -23,13 +23,14 @@ public class VoteService : IVoteService
         if (isUserVotedAsync) throw new InvalidOperationException();
 
         var election = await _electionService.GetAsync(token.ElectionId);
+        if (election == null) throw new InvalidOperationException(); // token is for non existent election
+
 
         var isPartyExist = election.Parties.Any(party => party.Id == int.Parse(partyId));
-        if (!isPartyExist) throw new InvalidOperationException();
+        if (!isPartyExist) throw new InvalidOperationException(); // party is not in election
 
         var vote = new Vote
         {
-            ElectionId = token.ElectionId,
             UserId = token.UserId,
             TokenId = token.Id,
             PartyId = int.Parse(partyId),
