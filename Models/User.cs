@@ -12,8 +12,12 @@ public class User : BaseModel
     public string County { get; set; }
     public string PostCode { get; set; }
     public string Country { get; set; }
+    
     public bool IsOnlineVoter { get; set; }
 
     public List<Vote> Votes { get; set; }
     public List<Token> Tokens { get; set; }
+
+    public NationalInsurance? NationalInsurance { get; set; }
+    public List<Passport> Passport { get; set; }
 }
