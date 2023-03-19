@@ -14,7 +14,7 @@ public class TokenService : ITokenService
     }
 
     /// <summary>
-    /// Issue a new token for a user to vote on an election
+    ///     Issue a new token for a user to vote on an election
     /// </summary>
     /// <param name="user"></param>
     /// <param name="election"></param>
@@ -37,7 +37,7 @@ public class TokenService : ITokenService
     }
 
     /// <summary>
-    /// Get token by its value
+    ///     Get token by its value
     /// </summary>
     /// <param name="tokenValue"></param>
     /// <returns></returns>
@@ -50,7 +50,7 @@ public class TokenService : ITokenService
     }
 
     /// <summary>
-    /// Validate a token is valid for voting
+    ///     Validate a token is valid for voting
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
@@ -68,7 +68,7 @@ public class TokenService : ITokenService
     }
 
     /// <summary>
-    /// Notify user of their token
+    ///     Notify user of their token
     /// </summary>
     /// <param name="token"></param>
     private void Notify(Token token)

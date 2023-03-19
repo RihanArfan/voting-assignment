@@ -19,7 +19,7 @@ public class ReportsController : Controller
         return View(elections);
     }
 
-    
+
     public async Task<IActionResult> Details(int id)
     {
         var election = await _electionService.GetAsync(id);

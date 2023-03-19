@@ -10,7 +10,7 @@ public class ElectionService : IElectionService
     }
 
     /// <summary>
-    /// List all elections
+    ///     List all elections
     /// </summary>
     /// <returns></returns>
     public async Task<List<Election>> GetAllAsync()
@@ -19,7 +19,7 @@ public class ElectionService : IElectionService
     }
 
     /// <summary>
-    /// Get a specific election
+    ///     Get a specific election
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -31,7 +31,7 @@ public class ElectionService : IElectionService
     }
 
     /// <summary>
-    /// Create a new election
+    ///     Create a new election
     /// </summary>
     /// <param name="election"></param>
     /// <returns></returns>
@@ -43,14 +43,14 @@ public class ElectionService : IElectionService
     }
 
     /// <summary>
-    /// Update an election
+    ///     Update an election
     /// </summary>
     /// <param name="election"></param>
     /// <returns></returns>
     public async Task<Election> UpdateAsync(Election election)
     {
         // TODO: Prevent updating linked parties after election has started
-        
+
         _context.Election.Update(election);
         await _context.SaveChangesAsync();
         return election;

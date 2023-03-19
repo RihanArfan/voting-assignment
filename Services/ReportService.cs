@@ -11,7 +11,7 @@ public class ReportService : IReportService
     }
 
     /// <summary>
-    /// Get total vote count by election
+    ///     Get total vote count by election
     /// </summary>
     /// <param name="electionId"></param>
     /// <returns></returns>
@@ -21,7 +21,7 @@ public class ReportService : IReportService
     }
 
     /// <summary>
-    /// Returns total, online and in person vote counts by date for an election
+    ///     Returns total, online and in person vote counts by date for an election
     /// </summary>
     /// <param name="electionId"></param>
     /// <returns></returns>
@@ -39,7 +39,7 @@ public class ReportService : IReportService
             })
             .ToList();
     }
-    
+
     public IEnumerable<PartyVote> GetPartyVotes(int electionId)
     {
         return _context.Vote

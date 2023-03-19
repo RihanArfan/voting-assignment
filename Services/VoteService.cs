@@ -3,8 +3,8 @@
 public class VoteService : IVoteService
 {
     private readonly VotingContext _context;
-    private readonly ITokenService _tokenService;
     private readonly IElectionService _electionService;
+    private readonly ITokenService _tokenService;
 
     public VoteService(VotingContext context, ITokenService tokenService, IElectionService electionService)
     {
@@ -14,7 +14,7 @@ public class VoteService : IVoteService
     }
 
     /// <summary>
-    /// Vote for party
+    ///     Vote for party
     /// </summary>
     /// <param name="partyId"></param>
     /// <param name="tokenValue"></param>
@@ -32,7 +32,6 @@ public class VoteService : IVoteService
         var election = await _electionService.GetAsync(token.ElectionId);
         if (election == null) throw new InvalidOperationException(); // token is for non existent election
 
-
         var isPartyExist = election.Parties.Any(party => party.Id == int.Parse(partyId));
         if (!isPartyExist) throw new InvalidOperationException(); // party is not in election
 
@@ -49,7 +48,7 @@ public class VoteService : IVoteService
     }
 
     /// <summary>
-    /// Check if user voted in election
+    ///     Check if user voted in election
     /// </summary>
     /// <param name="userId"></param>
     /// <param name="electionId"></param>

@@ -8,7 +8,7 @@ public class Party : BaseModel
     public string? Description { get; set; }
     public string Logo { get; set; }
     public string Color { get; set; }
-    
+
     public string? Website { get; set; }
     public string? Facebook { get; set; }
     public string? Twitter { get; set; }

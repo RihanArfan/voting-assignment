@@ -12,7 +12,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Issues all users a token for a given election
+    ///     Issues all users a token for a given election
     /// </summary>
     /// <param name="election"></param>
     public void CreateTokensForElectionAsync(Election election)

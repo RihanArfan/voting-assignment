@@ -1,4 +1,5 @@
-﻿@model ReportViewModel
+﻿@using System.Text.Json
+@model ReportViewModel
 
 @{
     ViewData["Title"] = "Report";
@@ -6,18 +7,18 @@
 }
 
 <div class="govuk-notification-banner" role="region"
-  aria-labelledby="govuk-notification-banner-title"
-  data-module="govuk-notification-banner">
-  <div class="govuk-notification-banner__header">
-    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-      Info
-    </h2>
-  </div>
-  <div class="govuk-notification-banner__content">
-    <p class="govuk-notification-banner__heading">
-      This election has @Model.TotalVotes votes.
-    </p>
-  </div>
+     aria-labelledby="govuk-notification-banner-title"
+     data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Info
+        </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+            This election has @Model.TotalVotes votes.
+        </p>
+    </div>
 </div>
 
 <h2 class="govuk-heading-m">Total, online and in person per day</h2>
@@ -29,14 +30,14 @@
 
 @section Scripts
 {
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script>
+    <script>
     const chartOverall = document.getElementById('chart-overall')
     const chartParty = document.getElementById('chart-party')
     
-    const overallData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.TimeSeriesVotes))
-    const partyData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.PartyVotes));
+    const overallData = @Html.Raw(JsonSerializer.Serialize(Model.TimeSeriesVotes))
+    const partyData = @Html.Raw(JsonSerializer.Serialize(Model.PartyVotes));
         
     new Chart(chartOverall, {
       type: "line",
