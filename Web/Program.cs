@@ -22,6 +22,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IVoteService, VoteService>();
 builder.Services.AddScoped<IElectionService, ElectionService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 var app = builder.Build();
 

@@ -1,6 +1,7 @@
 ﻿namespace Services;
 
-public class ReportService
+// TODO: Interface
+public class ReportService : IReportService
 {
     private readonly VotingContext _context;
 
@@ -9,20 +10,48 @@ public class ReportService
         _context = context;
     }
 
-    public int GetVotesCount(int electionId)
+    /// <summary>
+    /// Get total vote count by election
+    /// </summary>
+    /// <param name="electionId"></param>
+    /// <returns></returns>
+    public async Task<int> GetVoteCount(int electionId)
     {
-        return _context.Vote.Count(v => v.ElectionId == electionId);
+        return await _context.Vote.CountAsync(v => v.Token.ElectionId == electionId);
     }
 
-    public IEnumerable<TimeSeriesVote> GetTimeSeriesVotesByElection(int electionId)
+    /// <summary>
+    /// Returns total, online and in person vote counts by date for an election
+    /// </summary>
+    /// <param name="electionId"></param>
+    /// <returns></returns>
+    public IEnumerable<TimeSeriesVote> GetTimeSeriesVotes(int electionId)
     {
         return _context.Vote
-            .Where(v => v.ElectionId == electionId)
-            .GroupBy(v => v.CreatedAt.Date)
+            .Where(v => v.Token.ElectionId == electionId)
+            .GroupBy(v => v.CreatedAt)
             .Select(g => new TimeSeriesVote
             {
-                Date = g.Key,
-                Count = g.Count()
-            });
+                Date = g.Key.UtcDateTime,
+                Total = g.Count(),
+                Online = g.Count(v => v.Token.IsOnlineVote),
+                InPerson = g.Count(v => !v.Token.IsOnlineVote)
+            })
+            .ToList();
+    }
+    
+    public IEnumerable<PartyVote> GetPartyVotes(int electionId)
+    {
+        return _context.Vote
+            .Where(v => v.Token.ElectionId == electionId)
+            .GroupBy(v => v.PartyId)
+            .Select(g => new PartyVote
+            {
+                PartyId = g.Key,
+                PartyName = g.First().Party.Name,
+                PartyColor = g.First().Party.Color,
+                Total = g.Count()
+            })
+            .ToList();
     }
 }

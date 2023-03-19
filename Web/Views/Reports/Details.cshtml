@@ -1,0 +1,79 @@
+﻿@model ReportViewModel
+
+@{
+    ViewData["Title"] = "Report";
+    ViewData["Header"] = "View report for election";
+}
+
+<div class="govuk-notification-banner" role="region"
+  aria-labelledby="govuk-notification-banner-title"
+  data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Info
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">
+      This election has @Model.TotalVotes votes.
+    </p>
+  </div>
+</div>
+
+<h2 class="govuk-heading-m">Total, online and in person per day</h2>
+
+<canvas id="chart-overall"></canvas>
+
+<h2 class="govuk-heading-m">Total by party</h2>
+<canvas id="chart-party"></canvas>
+
+@section Scripts
+{
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const chartOverall = document.getElementById('chart-overall')
+    const chartParty = document.getElementById('chart-party')
+    
+    const overallData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.TimeSeriesVotes))
+    const partyData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.PartyVotes));
+        
+    new Chart(chartOverall, {
+      type: "line",
+      data: {
+        labels: overallData.map((p) => new Date(p.Date).toDateString()),
+        datasets: [
+          {
+            label: "Total Votes",
+            data: overallData.map((p) => p.Total),
+            borderColor: "rgb(75, 192, 192)",
+          },
+          {
+            label: "Online Votes",
+            data: overallData.map((p) => p.Online),
+            borderColor: "red",
+          },
+          {
+            label: "In Person Votes",
+            data: overallData.map((p) => p.InPerson),
+            borderColor: "green",
+          },
+        ],
+      },
+    });
+    
+    new Chart(chartParty, {
+      type: "doughnut",
+      data: {
+        labels: partyData.map((p) => p.PartyName),
+        datasets: [
+          {
+            label: "Votes by Party",
+            data: partyData.map((p) => p.Total),
+            backgroundColor: partyData.map((p) => `#${p.PartyColor}`),
+          },
+        ],
+      },
+    });
+    </script>
+}

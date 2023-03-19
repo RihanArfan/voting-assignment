@@ -11,5 +11,5 @@ public class Election : BaseModel
     public DateTimeOffset EndDate { get; set; }
 
     public List<Party> Parties { get; set; }
-    public List<Vote> Votes { get; set; }
+    public List<Token> Tokens { get; set; }
 }

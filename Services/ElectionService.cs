@@ -13,7 +13,7 @@ public class ElectionService : IElectionService
     /// List all elections
     /// </summary>
     /// <returns></returns>
-    public async Task<List<Election>> GetAll()
+    public async Task<List<Election>> GetAllAsync()
     {
         return await _context.Election.ToListAsync();
     }
