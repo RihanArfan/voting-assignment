@@ -56,7 +56,7 @@ public class PartiesController : Controller
     {
         // handle invalid model state
         if (!ModelState.IsValid) return View();
-        
+
         // ensure id matches url
         if (id != party.Id) return NotFound();
 

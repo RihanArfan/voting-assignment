@@ -50,7 +50,7 @@ public class ElectionsController : Controller
     {
         // handle invalid model state
         if (!ModelState.IsValid) return View();
-        
+
         try
         {
             // convert view model to model
@@ -110,7 +110,7 @@ public class ElectionsController : Controller
     {
         // handle invalid model state
         if (!ModelState.IsValid) return View();
-        
+
         // ensure id matches url
         if (id != electionViewModel.Id) return NotFound();
 
@@ -124,7 +124,7 @@ public class ElectionsController : Controller
             Parties = electionViewModel.PartiesViewModel.Where(p => p.Selected).Select(p => new Party { Id = p.Id })
                 .ToList()
         };
-        
+
         try
         {
             // update election
