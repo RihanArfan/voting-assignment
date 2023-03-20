@@ -55,4 +55,20 @@ public class ElectionService : IElectionService
         await _context.SaveChangesAsync();
         return election;
     }
+
+    /// <summary>
+    ///     Delete an election
+    /// </summary>
+    /// <param name="election"></param>
+    /// <returns></returns>
+    public async Task DeleteAsync(int id)
+    {
+        var election = await GetAsync(id);
+
+        // Prevent deleting election if it's past the start date
+        if (election.StartDate < DateTime.Now) throw new Exception("Cannot delete election after it has started");
+
+        _context.Election.Remove(election);
+        await _context.SaveChangesAsync();
+    }
 }

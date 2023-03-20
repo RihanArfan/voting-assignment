@@ -6,4 +6,5 @@ public interface IElectionService
     Task<Election?> GetAsync(int id);
     Task<Election> CreateAsync(Election election);
     Task<Election> UpdateAsync(Election election);
+    Task DeleteAsync(int id);
 }

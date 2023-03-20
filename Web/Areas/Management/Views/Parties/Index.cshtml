@@ -1,0 +1,62 @@
+﻿@model List<Party>
+
+@{
+    ViewData["Title"] = "Parties";
+    ViewData["Create"] = true;
+}
+
+<partial name="_SuccessAlert"/>
+
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Links</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var party in Model)
+    {
+        <tr>
+            <td>
+                <img src="@party.Logo" class="img-fluid" style="max-height: 50px;" alt="@party.Name logo"/>
+                @party.Name
+            </td>
+            <td>@party.Description</td>
+            <td>
+                @if (party.Facebook != null)
+                {
+                    <a href="https://@party.Facebook" target="_blank" class="btn btn-primary btn-sm">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                }
+                @if (party.Twitter != null)
+                {
+                    <a href="https://@party.Twitter" target="_blank" class="btn btn-primary btn-sm">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                }
+                @if (party.Instagram != null)
+                {
+                    <a href="https://@party.Instagram" target="_blank" class="btn btn-primary btn-sm">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                }
+                @if (party.Website != null)
+                {
+                    <a href="https://@party.Website" target="_blank" class="btn btn-primary btn-sm">
+                        <i class="bi bi-globe"></i>
+                    </a>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@party.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@party.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

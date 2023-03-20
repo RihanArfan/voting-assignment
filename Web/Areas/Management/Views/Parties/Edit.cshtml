@@ -1,0 +1,58 @@
+﻿@model Party
+
+@{
+    ViewData["Title"] = "Edit Party";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id"/>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <input asp-for="Description" class="form-control">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Color" class="form-label"></label>
+                <input asp-for="Color" class="form-control" type="color">
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Logo" class="form-label"></label>
+                <input asp-for="Logo" class="form-control">
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Website" class="form-label"></label>
+                <input asp-for="Website" class="form-control">
+                <span asp-validation-for="Website" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Facebook" class="form-label"></label>
+                <input asp-for="Facebook" class="form-control">
+                <span asp-validation-for="Facebook" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Twitter" class="form-label"></label>
+                <input asp-for="Twitter" class="form-control">
+                <span asp-validation-for="Twitter" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Instagram" class="form-label"></label>
+                <input asp-for="Instagram" class="form-control">
+                <span asp-validation-for="Instagram" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+                <a class="btn btn-outline-primary" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

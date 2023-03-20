@@ -1,0 +1,36 @@
+﻿@model List<Election>
+
+@{
+    ViewData["Title"] = "Elections";
+    ViewData["Create"] = true;
+}
+
+<partial name="_SuccessAlert"/>
+
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">StartDate</th>
+        <th scope="col">Parties</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var election in Model)
+    {
+        <tr>
+            <td>@election.Name</td>
+            <td>@election.Description</td>
+            <td>@election.StartDate</td>
+            <td>@election.EndDate</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@election.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@election.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

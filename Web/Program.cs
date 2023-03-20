@@ -23,6 +23,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IVoteService, VoteService>();
 builder.Services.AddScoped<IElectionService, ElectionService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IPartiesService, PartiesService>();
 
 var app = builder.Build();
 
@@ -42,8 +43,13 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    "Management",
+    "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     "default",
     "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.UseCookiePolicy(new CookiePolicyOptions
