@@ -27,17 +27,21 @@ public class AuthController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel viewModel)
     {
+        // handle invalid model state
         if (!ModelState.IsValid) return View(viewModel);
 
+        // validate token
         var token = await _tokenService.GetByValue(viewModel.Token);
         var isValid = _tokenService.Validate(token);
 
+        // handle invalid token
         if (!isValid || token == null)
         {
             ModelState.AddModelError("Token", "The token provided is invalid.");
             return View(viewModel);
         }
 
+        // prepare details login
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, token.UserId.ToString()),
@@ -48,6 +52,7 @@ public class AuthController : Controller
         var claimsIdentity = new ClaimsIdentity(
             claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+        // login user
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(claimsIdentity));

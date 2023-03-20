@@ -31,6 +31,7 @@ public class PartiesController : Controller
     {
         try
         {
+            // create party
             _partiesService.CreateAsync(party);
             TempData["Success"] = true; // show success message
             return RedirectToAction(nameof(Index));
@@ -53,10 +54,15 @@ public class PartiesController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult Edit(int id, Party party)
     {
+        // handle invalid model state
+        if (!ModelState.IsValid) return View();
+        
+        // ensure id matches url
         if (id != party.Id) return NotFound();
 
         try
         {
+            // update party
             _partiesService.UpdateAsync(party);
             TempData["Success"] = true; // show success message
             return RedirectToAction(nameof(Index));

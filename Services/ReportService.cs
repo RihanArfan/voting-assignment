@@ -40,6 +40,11 @@ public class ReportService : IReportService
             .ToList();
     }
 
+    /// <summary>
+    ///     Returns a list of all parties and their vote counts for an election
+    /// </summary>
+    /// <param name="electionId"></param>
+    /// <returns></returns>
     public IEnumerable<PartyVote> GetPartyVotes(int electionId)
     {
         return _context.Vote

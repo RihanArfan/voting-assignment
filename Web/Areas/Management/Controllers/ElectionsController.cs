@@ -25,7 +25,10 @@ public class ElectionsController : Controller
     // GET: Elections/Create
     public async Task<ActionResult> CreateAsync()
     {
+        // get required data
         var parties = await _partiesService.GetAllAsync();
+
+        // convert model to view model
         var electionViewModel = new ElectionViewModel
         {
             PartiesViewModel = parties.Select(p => new ElectionPartyViewModel
@@ -45,8 +48,12 @@ public class ElectionsController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult Create(ElectionViewModel electionViewModel)
     {
+        // handle invalid model state
+        if (!ModelState.IsValid) return View();
+        
         try
         {
+            // convert view model to model
             var electionModel = new Election
             {
                 Name = electionViewModel.Name,
@@ -56,6 +63,7 @@ public class ElectionsController : Controller
                     .ToList()
             };
 
+            // create election
             _electionService.CreateAsync(electionModel);
 
             TempData["Success"] = true; // show success message
@@ -70,12 +78,14 @@ public class ElectionsController : Controller
     // GET: Elections/Edit/5
     public async Task<ActionResult> Edit(int id)
     {
+        // get required data
         var election = await _electionService.GetAsync(id);
         var parties = await _partiesService.GetAllAsync();
 
         // if election doesn't exist, show 404 page
         if (election == null) return NotFound();
-        
+
+        // convert model to view model
         var electionViewModel = new ElectionViewModel
         {
             Id = election.Id,
@@ -88,8 +98,8 @@ public class ElectionsController : Controller
                 Name = p.Name,
                 Selected = election.Parties.Any(ep => ep.Id == p.Id)
             }).ToList()
-        }; 
-            
+        };
+
         return View(electionViewModel);
     }
 
@@ -98,8 +108,13 @@ public class ElectionsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> EditAsync(int id, ElectionViewModel electionViewModel)
     {
+        // handle invalid model state
         if (!ModelState.IsValid) return View();
+        
+        // ensure id matches url
+        if (id != electionViewModel.Id) return NotFound();
 
+        // convert view model to model
         var election = new Election
         {
             Id = id,
@@ -109,11 +124,10 @@ public class ElectionsController : Controller
             Parties = electionViewModel.PartiesViewModel.Where(p => p.Selected).Select(p => new Party { Id = p.Id })
                 .ToList()
         };
-
-        await _electionService.UpdateAsync(election);
-
+        
         try
         {
+            // update election
             await _electionService.UpdateAsync(election);
             TempData["Success"] = true; // show success message
             return RedirectToAction(nameof(Index));
@@ -139,6 +153,7 @@ public class ElectionsController : Controller
     {
         try
         {
+            // delete election
             await _electionService.DeleteAsync(id);
             TempData["Success"] = true; // show success message
             return RedirectToAction(nameof(Index));

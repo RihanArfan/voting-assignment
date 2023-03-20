@@ -22,15 +22,18 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Details(int id)
     {
+        // get election
         var election = await _electionService.GetAsync(id);
 
         // if election doesn't exist, show 404
         if (election == null) return NotFound();
 
+        // get report data for election
         var timeSeriesVotes = _reportService.GetTimeSeriesVotes(id);
         var partyVotes = _reportService.GetPartyVotes(id);
         var totalVotes = await _reportService.GetVoteCount(id);
 
+        // create view model using data
         var reportViewModel = new ReportViewModel
         {
             Election = election,

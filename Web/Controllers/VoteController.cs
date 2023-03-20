@@ -31,6 +31,7 @@ public class VoteController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Index(VoteViewModel viewModel)
     {
+        // handle invalid model state
         if (!ModelState.IsValid)
         {
             var electionId = HttpContext.User.FindFirst("ElectionId")?.Value;
@@ -41,16 +42,19 @@ public class VoteController : Controller
 
         try
         {
+            // get user token
             var sessionToken = HttpContext.User.FindFirst("Token")?.Value;
             await _voteService.VoteAsync(viewModel.Party, sessionToken ?? throw new InvalidOperationException());
         }
         catch (UnauthorizedAccessException)
         {
+            // handle session errors
             ModelState.AddModelError("", "Session expired, sign in again.");
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
         catch (InvalidOperationException)
         {
+            // handle session errors
             ModelState.AddModelError("", "Session expired, sign in again.");
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
@@ -61,10 +65,12 @@ public class VoteController : Controller
 
     public async Task<IActionResult> Confirmation()
     {
+        // show what vote number the user is
         var VOTE_NUMBER = 12940; // TODO: get from VoteService.VoteAsync
         var voteNumberNearest100 = (VOTE_NUMBER + 50) / 100 * 100;
         ViewBag.VoteNumber = voteNumberNearest100.ToString("N0");
 
+        // logout the user as they have voted now
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return View();
     }
