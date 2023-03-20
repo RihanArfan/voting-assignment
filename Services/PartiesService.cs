@@ -63,6 +63,8 @@ public class PartiesService : IPartiesService
     {
         var party = await GetAsync(id);
 
+        if (party == null) throw new Exception("Party not found");
+
         // Prevent deleting parties associated with an election
         if (party.Election.Count > 0) throw new Exception("Cannot delete party with associated election");
 
