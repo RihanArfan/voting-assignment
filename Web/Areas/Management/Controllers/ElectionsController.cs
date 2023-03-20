@@ -72,6 +72,9 @@ public class ElectionsController : Controller
     {
         var election = await _electionService.GetAsync(id);
         var parties = await _partiesService.GetAllAsync();
+
+        // if election doesn't exist, show 404 page
+        if (election == null) return NotFound();
         
         var electionViewModel = new ElectionViewModel
         {
