@@ -1,10 +1,10 @@
 ﻿namespace Services;
 
-public class PartiesService : IPartiesService
+public class PartyService : IPartyService
 {
     private readonly VotingContext _context;
 
-    public PartiesService(VotingContext context)
+    public PartyService(VotingContext context)
     {
         _context = context;
     }

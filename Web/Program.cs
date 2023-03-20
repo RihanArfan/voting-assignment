@@ -23,7 +23,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IVoteService, VoteService>();
 builder.Services.AddScoped<IElectionService, ElectionService>();
 builder.Services.AddScoped<IReportService, ReportService>();
-builder.Services.AddScoped<IPartiesService, PartiesService>();
+builder.Services.AddScoped<IPartyService, PartyService>();
 
 var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿namespace Services.Interfaces;
 
-public interface IPartiesService
+public interface IPartyService
 {
     Task<List<Party>> GetAllAsync();
     Task<Party?> GetAsync(int id);

@@ -3,17 +3,17 @@ namespace Web.Areas.Management.Controllers;
 [Area("Management")]
 public class PartiesController : Controller
 {
-    private readonly IPartiesService _partiesService;
+    private readonly IPartyService _partyService;
 
-    public PartiesController(IPartiesService partiesService)
+    public PartiesController(IPartyService partyService)
     {
-        _partiesService = partiesService;
+        _partyService = partyService;
     }
 
     // GET: Parties
     public async Task<ActionResult> Index()
     {
-        var parties = await _partiesService.GetAllAsync();
+        var parties = await _partyService.GetAllAsync();
         ViewBag.Success = Convert.ToBoolean(TempData["Success"] ?? false);
         return View(parties);
     }
@@ -32,7 +32,7 @@ public class PartiesController : Controller
         try
         {
             // create party
-            _partiesService.CreateAsync(party);
+            _partyService.CreateAsync(party);
             TempData["Success"] = true; // show success message
             return RedirectToAction(nameof(Index));
         }
@@ -45,7 +45,7 @@ public class PartiesController : Controller
     // GET: Parties/Edit/5
     public async Task<ActionResult> Edit(int id)
     {
-        var party = await _partiesService.GetAsync(id);
+        var party = await _partyService.GetAsync(id);
         return View(party);
     }
 
@@ -63,7 +63,7 @@ public class PartiesController : Controller
         try
         {
             // update party
-            _partiesService.UpdateAsync(party);
+            _partyService.UpdateAsync(party);
             TempData["Success"] = true; // show success message
             return RedirectToAction(nameof(Index));
         }
@@ -76,7 +76,7 @@ public class PartiesController : Controller
     // GET: Parties/Delete/5
     public async Task<ActionResult> Delete(int id)
     {
-        var party = await _partiesService.GetAsync(id);
+        var party = await _partyService.GetAsync(id);
         return View(party);
     }
 
@@ -88,7 +88,7 @@ public class PartiesController : Controller
     {
         try
         {
-            _partiesService.DeleteAsync(id);
+            _partyService.DeleteAsync(id);
             TempData["Success"] = true; // show success message
             return RedirectToAction(nameof(Index));
         }

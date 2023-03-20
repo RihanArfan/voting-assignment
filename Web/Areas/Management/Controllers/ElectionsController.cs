@@ -6,12 +6,12 @@ namespace Web.Areas.Management.Controllers;
 public class ElectionsController : Controller
 {
     private readonly IElectionService _electionService;
-    private readonly IPartiesService _partiesService;
+    private readonly IPartyService _partyService;
 
-    public ElectionsController(IElectionService electionService, IPartiesService partiesService)
+    public ElectionsController(IElectionService electionService, IPartyService partyService)
     {
         _electionService = electionService;
-        _partiesService = partiesService;
+        _partyService = partyService;
     }
 
     // GET: Elections
@@ -26,7 +26,7 @@ public class ElectionsController : Controller
     public async Task<ActionResult> CreateAsync()
     {
         // get required data
-        var parties = await _partiesService.GetAllAsync();
+        var parties = await _partyService.GetAllAsync();
 
         // convert model to view model
         var electionViewModel = new ElectionViewModel
@@ -80,7 +80,7 @@ public class ElectionsController : Controller
     {
         // get required data
         var election = await _electionService.GetAsync(id);
-        var parties = await _partiesService.GetAllAsync();
+        var parties = await _partyService.GetAllAsync();
 
         // if election doesn't exist, show 404 page
         if (election == null) return NotFound();
