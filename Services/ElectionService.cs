@@ -65,6 +65,8 @@ public class ElectionService : IElectionService
     {
         var election = await GetAsync(id);
 
+        if (election == null) throw new Exception("Election not found");
+
         // Prevent deleting election if it's past the start date
         if (election.StartDate < DateTime.Now) throw new Exception("Cannot delete election after it has started");
 

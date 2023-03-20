@@ -3,11 +3,11 @@ using Models;
 
 namespace Services.Tests;
 
-public class ElectionService_CreateAsync
+public class PartyService_CreateAsync
 {
     private readonly Mock<VotingContext> _mockDbContext;
 
-    public ElectionService_CreateAsync()
+    public PartyService_CreateAsync()
     {
         var options = new DbContextOptionsBuilder<VotingContext>()
             .UseInMemoryDatabase("VotingContext")
@@ -16,21 +16,21 @@ public class ElectionService_CreateAsync
     }
 
     [Fact]
-    public async Task ElectionService_CreateAsync_CallsEfCoreAdd()
+    public async Task PartyService_CreateAsync_CallsEfCoreAdd()
     {
         // Arrange
-        var electionService = new ElectionService(_mockDbContext.Object);
+        var partyService = new PartyService(_mockDbContext.Object);
         
-        var election = new Election
+        var party = new Party
         {
             Id = 1,
             Name = "Test Election",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(1),
+            Logo = "https://example.com/logo.png",
+            Color = "#000000",
         };
 
         // Act
-        var act = await electionService.CreateAsync(election);
+        var act = await partyService.CreateAsync(party);
 
         // Assert
         _mockDbContext.Verify(m => m.Election.Add(It.IsAny<Election>()), Times.Once);
@@ -38,21 +38,21 @@ public class ElectionService_CreateAsync
 
 
     [Fact]
-    public async Task ElectionService_CreateAsync_ReturnsCorrectType()
+    public async Task PartyService_CreateAsync_ReturnsCorrectType()
     {
         // Arrange
-        var electionService = new ElectionService(_mockDbContext.Object);
+        var partyService = new PartyService(_mockDbContext.Object);
         
-        var election = new Election
+        var party = new Party
         {
             Id = 1,
             Name = "Test Election",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(1),
+            Logo = "https://example.com/logo.png",
+            Color = "#000000",
         };
 
         // Act
-        var act = await electionService.CreateAsync(election);
+        var act = await partyService.CreateAsync(party);
 
         // Assert
         Assert.IsType<Election>(act);
