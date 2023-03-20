@@ -4,5 +4,5 @@ namespace Web.Models;
 
 public class VoteViewModel
 {
-    [Required] public string Party { get; set; }
+    [Required] public string Party { get; set; } = string.Empty;
 }

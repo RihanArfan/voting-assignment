@@ -4,20 +4,20 @@ namespace Models;
 
 public class User : BaseModel
 {
-    [Required] public string Name { get; set; }
-    public string Email { get; set; }
-    public string Address1 { get; set; }
+    [Required] public string Name { get; set; } = default!;
+    public string Email { get; set; } = default!;
+    public string Address1 { get; set; } = default!;
     public string? Address2 { get; set; }
-    public string City { get; set; }
-    public string County { get; set; }
-    public string PostCode { get; set; }
-    public string Country { get; set; }
+    public string City { get; set; } = default!;
+    public string County { get; set; } = default!;
+    public string PostCode { get; set; } = default!;
+    public string Country { get; set; } = default!;
 
     public bool IsOnlineVoter { get; set; }
 
-    public List<Vote> Votes { get; set; }
-    public List<Token> Tokens { get; set; }
+    public List<Vote> Votes { get; set; } = default!;
+    public List<Token> Tokens { get; set; } = default!;
 
     public NationalInsurance? NationalInsurance { get; set; }
-    public List<Passport> Passport { get; set; }
+    public List<Passport> Passport { get; set; } = default!;
 }

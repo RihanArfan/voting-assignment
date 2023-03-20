@@ -2,8 +2,8 @@
 
 public class ReportViewModel
 {
-    public Election Election { get; set; }
-    public IEnumerable<TimeSeriesVote> TimeSeriesVotes { get; set; }
-    public IEnumerable<PartyVote> PartyVotes { get; set; }
+    public Election Election { get; set; } = new Election();
+    public IEnumerable<TimeSeriesVote> TimeSeriesVotes { get; set; } = default!;
+    public IEnumerable<PartyVote> PartyVotes { get; set; } = default!;
     public int TotalVotes { get; set; }
 }
